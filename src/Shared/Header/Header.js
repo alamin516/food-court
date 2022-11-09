@@ -15,10 +15,12 @@ const Header = () => {
     const menuLink = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to="/blog">Blog</Link></li>
-        <li><Link to="/blog">Services</Link></li>
-        <li><Link to="/blog">Add Service</Link></li>
+        <li><Link to="/services">Services</Link></li>
         {
-            user?.uid && <li><Link to="/reviews">My Review</Link></li>
+            user?.uid && <>
+                <li><Link to="/add-service">Add Service</Link></li>
+                <li><Link to="/reviews">My Review</Link></li>
+            </>
         }
         {
             user?.uid ?
@@ -47,7 +49,7 @@ const Header = () => {
                         {menuLink}
                     </ul>
                 </div>
-                <Link className="btn btn-ghost normal-case text-xl"><img src={logo} alt="" /></Link>
+                <Link to='/' className="btn btn-ghost normal-case text-xl"><img className='max-w-lg' src={logo} alt="" /></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -55,7 +57,7 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="btn bg-red-600 rounded-lg">Get started</Link>
+                <Link className="btn bg-red-600 border-red-600 rounded-lg text-white">Get started</Link>
             </div>
         </div>
     );
