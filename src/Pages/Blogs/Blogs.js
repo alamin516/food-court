@@ -1,7 +1,7 @@
 import React from 'react';
 import useTitle from '../../hooks/useTitle';
 
-const Blog = () => {
+const Blogs = () => {
     useTitle('Blog')
     return (
         <div className='min-h-screen'>
@@ -118,4 +118,4 @@ const Blog = () => {
     );
 };
 
-export default Blog;
+export default Blogs;
