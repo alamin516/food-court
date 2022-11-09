@@ -15,6 +15,11 @@ const Header = () => {
     const menuLink = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to="/blog">Blog</Link></li>
+        <li><Link to="/blog">Services</Link></li>
+        <li><Link to="/blog">Add Service</Link></li>
+        {
+            user?.uid && <li><Link to="/reviews">My Review</Link></li>
+        }
         {
             user?.uid ?
                 <>
@@ -28,6 +33,7 @@ const Header = () => {
         {
             user?.uid && <li><Link>{user.email}</Link></li>
         }
+
 
     </>
     return (
