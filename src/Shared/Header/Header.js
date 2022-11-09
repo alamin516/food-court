@@ -26,7 +26,7 @@ const Header = () => {
                 </>
         }
         {
-            user?.name && <li>{user.name}</li>
+            user?.uid && <li><Link>{user.email}</Link></li>
         }
 
     </>
