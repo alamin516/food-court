@@ -5,7 +5,8 @@ import routes from './Routes/Routes/Routes';
 function App() {
   return (
     <div className="max-w-screen-xl mx-auto">
-      <RouterProvider router={routes}></RouterProvider>
+      <RouterProvider router={routes}>
+      </RouterProvider>
     </div>
   );
 }

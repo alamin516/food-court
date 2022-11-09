@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_apiKey,
-  authDomain: process.env.REACT_APP_authDomain,
-  projectId: process.env.REACT_APP_projectId,
-  storageBucket: process.env.REACT_APP_storageBucket,
-  messagingSenderId: process.env.REACT_APP_messagingSenderId,
-  appId: process.env.REACT_APP_appId,
+  apiKey: "AIzaSyCqO7iOzv5rppx-nUmGlXnSNdNYJYUml1k",
+  authDomain: "food-court-7931a.firebaseapp.com",
+  projectId: "food-court-7931a",
+  storageBucket: "food-court-7931a.appspot.com",
+  messagingSenderId: "67557835656",
+  appId: "1:67557835656:web:de5605f5fe921ce81bb03d",
 };
 
 // Initialize Firebase
