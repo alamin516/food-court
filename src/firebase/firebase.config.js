@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCqO7iOzv5rppx-nUmGlXnSNdNYJYUml1k",
-  authDomain: "food-court-7931a.firebaseapp.com",
-  projectId: "food-court-7931a",
-  storageBucket: "food-court-7931a.appspot.com",
-  messagingSenderId: "67557835656",
-  appId: "1:67557835656:web:de5605f5fe921ce81bb03d",
+  apiKey: "AIzaSyA2SoQzoRJZfd647Ld643poIHvoJNgvaw8",
+  authDomain: "food-court-4c123.firebaseapp.com",
+  projectId: "food-court-4c123",
+  storageBucket: "food-court-4c123.appspot.com",
+  messagingSenderId: "956180698490",
+  appId: "1:956180698490:web:569d4c9d49ee6dfc62b2c3"
 };
 
 // Initialize Firebase
