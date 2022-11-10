@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../hooks/useTitle';
 
 const SignUp = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUser } = useContext(AuthContext);
     useTitle('Sign Up')
 
     const handleSubmit = (event) => {
@@ -20,8 +21,21 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                usernameUpdate(name)
+                toast('Successfully Created')
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err)
+                toast(err)
+            })
+    }
+
+    const usernameUpdate = (name) => {
+        updateUser({
+            displayName: name
+        })
+            .then()
+            .catch(error => toast(error))
     }
 
     return (
@@ -52,7 +66,7 @@ const SignUp = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn bg-red-600 border-red-600 rounded-lg text-white">Sign Up</button>
+                            <button type='submit' className="btn bg-red-600 border-red-600 rounded-lg text-white">Sign Up</button>
                         </div>
                     </form>
                     <p className='text-center'>Already have an account? <Link to='/login' className='text-red-500'>Login</Link></p>

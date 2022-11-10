@@ -8,7 +8,7 @@ const Services = () => {
     const { loading } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('http://localhost:5000/services')
+        fetch('https://food-court-server.vercel.app/services')
             .then(res => res.json())
             .then(data => setServices(data))
     }, [])
@@ -18,15 +18,17 @@ const Services = () => {
     useTitle('Services')
 
     if (loading) {
-        return <div className='min-h-screen flex justify-center'>
-            <div>
-                <button type="button" className="bg-indigo-500 ...">
-                    <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+        return <div className="hero min-h-screen w-full">
+        <div className="hero-content text-center w-1/2">
+            <div className="max-w-lg">
+                <button type="button" className="btn bg-red-500 border-red-500 text-white">
+                    <svg className="animate-spin h-5 w-5 mr-3 bg-blue-600" viewBox="0 0 24 24">
                     </svg>
                     Loading...
                 </button>
             </div>
         </div>
+    </div>
     }
     return (
         <div>

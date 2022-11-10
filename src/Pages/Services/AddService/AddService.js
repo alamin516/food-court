@@ -24,7 +24,7 @@ const AddService = () => {
             description
         }
 
-        fetch('http://localhost:5000/service', {
+        fetch('https://food-court-server.vercel.app/service', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -55,32 +55,32 @@ const AddService = () => {
                                 <label className="label">
                                     <span className="label-text">Title</span>
                                 </label>
-                                <input name='title' type="text" placeholder="Service title" className="input input-bordered rounded-lg" />
+                                <input name='title' type="text" placeholder="Service title" className="input input-bordered rounded-lg"  required/>
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Img URL</span>
                                 </label>
-                                <input name='img' type="url" placeholder="Img URL" className="input input-bordered rounded-lg" />
+                                <input name='img' type="url" placeholder="Img URL" className="input input-bordered rounded-lg"  required/>
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Price</span>
                                 </label>
-                                <input name='price' type="number" placeholder="Price" className="input input-bordered rounded-lg" />
+                                <input name='price' type="number" placeholder="Price" className="input input-bordered rounded-lg"  required/>
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Rating</span>
                                 </label>
-                                <input name='rating' type="number" placeholder="Rating" className="input input-bordered rounded-lg" />
+                                <input name='rating' type="number" placeholder="Rating" className="input input-bordered rounded-lg"  required/>
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Description</span>
                                 </label>
                                 
-                                <textarea name='description' className="textarea textarea-bordered h-24 w-full my-4" placeholder='Your Message'></textarea>
+                                <textarea name='description' className="textarea textarea-bordered h-24 w-full my-4" placeholder='Your Message' required></textarea>
                             </div>
 
                             <div className="mt-6">

@@ -32,9 +32,7 @@ const Header = () => {
                     <li><Link to="/signup">Sign Up</Link></li>
                 </>
         }
-        {
-            user?.uid && <li><Link>{user.email}</Link></li>
-        }
+
 
 
     </>
@@ -49,7 +47,7 @@ const Header = () => {
                         {menuLink}
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl"><img className='max-w-lg' src={logo} alt="" /></Link>
+                <Link to='/' className="normal-case text-3xl lg:px-5 font-bold">FoodCourt</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -57,7 +55,14 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="btn bg-red-600 border-red-600 rounded-lg text-white">Get started</Link>
+                <h2>{user?.displayName}</h2>
+                <div className="ml-2 avatar">
+                    <div className="rounded-full w-12 h-12">
+                        {
+                           user?.photoURL  && <img src={user?.photoURL} alt="" />
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );
