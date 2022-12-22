@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { useQuery } from 'react-query';
 import { Link, Navigate, useLoaderData, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../../contexts/AuthProvider/AuthProvider';
+import Loading from '../../../../Shared/Loading/Loading';
 import DisplayReview from './DisplayReview';
 
 const ServiceDetails = () => {
     const service = useLoaderData();
     const { user } = useContext(AuthContext)
     const { _id, title, img, price, rating, description } = service;
-    const [reviews, setReviews] = useState([])
     const location = useLocation();
 
 
@@ -22,13 +23,14 @@ const ServiceDetails = () => {
             service: _id,
             serviceName: title,
             price,
-            user,
+            email: user.email,
+            name: user.displayName,
             img,
             text,
             rating,
         }
 
-        fetch('https://food-court-server.vercel.app/reviews', {
+        fetch('http://localhost:5000/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -41,6 +43,7 @@ const ServiceDetails = () => {
                 if (data.acknowledged === true) {
                     toast("Review added successfully")
                     form.reset();
+                    refetch()
                     return <Navigate to="/login" state={{ from: location }} replace></Navigate>
                 }
             })
@@ -48,15 +51,29 @@ const ServiceDetails = () => {
 
     }
 
-    useEffect(() => {
-        fetch(`https://food-court-server.vercel.app/reviews`)
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                setReviews(data)
-            })
-    }, [])
+    const { data: reviews = [], isLoading, refetch } = useQuery({
+        queryKey: ['reviews', _id],
+        queryFn: async () => {
+            const res = await fetch(` http://localhost:5000/reviews/service?service=${_id}`);
+            const data = await res.json();
+            return data
+        }
+    })
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/reviews/service?service=${_id}`)
+    //         .then(res => {
+    //             return res.json()
+    //         })
+    //         .then(data => {
+    //             setReviews(data)
+    //         })
+    // }, [_id])
+
+
+    if(isLoading){
+        return <Loading></Loading>
+    }
 
     return (
         <div className='py-10'>

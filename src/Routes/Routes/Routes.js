@@ -7,7 +7,7 @@ import HomeServices from "../../Pages/Home/HomeServices/HomeServices";
 import Login from "../../Pages/Login/Login";
 import Reviews from "../../Pages/Reviews/Reviews";
 import UpdateReview from "../../Pages/Reviews/UpdateReview";
-import AddService from "../../Pages/Services/AddService/AddService";
+import AddProduct from "../../Pages/Services/AddProduct/AddProduct";
 import ServiceDetails from "../../Pages/Services/Services/ServiceDetails/ServiceDetails";
 import Services from "../../Pages/Services/Services/Services";
 import SignUp from "../../Pages/SignUp/SignUp";
@@ -40,7 +40,7 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/add-service',
-                element: <PrivateRoute><AddService></AddService></PrivateRoute>
+                element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
             },
             {
                 path: '/services',
@@ -50,7 +50,7 @@ const routes = createBrowserRouter([
                 path: '/services/:id',
                 element: <ServiceDetails></ServiceDetails>,
                 loader: ({params}) =>{
-                    return fetch(`https://food-court-server.vercel.app/services/${params.id}`)
+                    return fetch(`http://localhost:5000/services/${params.id}`)
                 }
             },
             {

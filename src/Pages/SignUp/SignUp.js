@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../hooks/useTitle';
 
 const SignUp = () => {
     const { createUser, updateUser } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
     useTitle('Sign Up')
+
+    let from = location.state?.from?.pathname || "/";
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -23,19 +27,72 @@ const SignUp = () => {
                 console.log(user)
                 usernameUpdate(name)
                 toast('Successfully Created')
+                navigate(from, {replace: true})
             })
             .catch(err => {
                 console.error(err)
-                toast(err)
+                alert(err)
             })
     }
+
+    // const handleAddProduct = data => {
+    //     const image = data.product_img[0];
+    //     const formData = new FormData();
+    //     formData.append('image', image)
+    //     const url = `https://api.imgbb.com/1/upload?key=${imgHostingApiKey}`;
+    //     fetch(url, {
+    //         method: 'POST',
+    //         body: formData
+    //     })
+    //         .then(res => res.json())
+    //         .then(imgData => {
+    //             if (imgData.success) {
+    //                 console.log(imgData.data.url);
+
+    //                 const user = {
+    //                     seller: data.seller,
+    //                     name: data.name,
+    //                     email: data.email,
+    //                     phone: data.phone,
+    //                     categoryId: data.categoryId,
+    //                     img: imgData.data.url,
+    //                     location: data.location,
+    //                     price: data.price,
+    //                     resale_price: data.resale_price,
+    //                     description: data.description,
+    //                     condition: data.condition,
+    //                     used_time: data.used_time,
+    //                     verified_seller : verifiedSeller.verified
+
+    //                 }
+
+    //                 fetch(`https://car-seller-server.vercel.app/products`, {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         'content-type': 'application/json',
+    //                         authorization: `bearer ${localStorage.getItem('accessToken')}`
+    //                     },
+    //                     body: JSON.stringify(product)
+    //                 })
+    //                     .then(res => res.json())
+    //                     .then(data => {
+    //                         if (data.acknowledged) {
+    //                             toast.success(`Product added successfully`);
+    //                             navigate('/dashboard/myproducts')
+    //                             refetch()
+    //                         }
+    //                     })
+    //             }
+    //         })
+
+    // }
 
     const usernameUpdate = (name) => {
         updateUser({
             displayName: name
         })
             .then()
-            .catch(error => toast(error))
+            .catch(error => alert(error))
     }
 
     return (

@@ -8,7 +8,7 @@ const Services = () => {
     const { loading } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('https://food-court-server.vercel.app/services')
+        fetch('http://localhost:5000/services')
             .then(res => res.json())
             .then(data => setServices(data))
     }, [])

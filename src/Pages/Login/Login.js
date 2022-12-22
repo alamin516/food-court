@@ -7,6 +7,7 @@ const Login = () => {
     const { signIn, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    
     const from = location.state?.from?.pathname || '/';
     useTitle('Login')
 
@@ -24,7 +25,7 @@ const Login = () => {
                 console.log(user);
                 navigate(from, {replace: true})
             })
-            .catch(err => console.error(err))
+            .catch(err => alert(err))
     }
 
     const handleGoogle = () => {
@@ -34,7 +35,7 @@ const Login = () => {
                 console.log(user);
                 navigate(from, {replace: true})
             })
-            .catch(err => console.error(err))
+            .catch(err => alert(err))
     }
 
     return (

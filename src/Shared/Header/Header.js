@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
-import logo from '../../logo.png'
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext)
@@ -18,7 +17,7 @@ const Header = () => {
         <li><Link to="/services">Services</Link></li>
         {
             user?.uid && <>
-                <li><Link to="/add-service">Add Service</Link></li>
+                <li><Link to="/add-service">Add Product</Link></li>
                 <li><Link to="/reviews">My Review</Link></li>
             </>
         }
@@ -26,13 +25,24 @@ const Header = () => {
             user?.uid ?
                 <>
                     <li><Link onClick={handleSignOut} to="/login">Sign Out</Link></li>
-                </> :
+                    <li ><Link className='hover:bg-transparent'>{user?.displayName}</Link></li>
+
+                    {user?.photoURL &&
+                        <li>
+                            <div className="avatar hover:bg-transparent">
+                                <div className="lg:w-10 w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <img src={user?.photoURL} alt='' />
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </>
+                :
                 <>
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/signup">Sign Up</Link></li>
                 </>
         }
-
 
 
     </>
@@ -49,20 +59,10 @@ const Header = () => {
                 </div>
                 <Link to='/' className="normal-case text-3xl lg:px-5 font-bold">FoodCourt</Link>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-end hidden lg:flex lg:w-9/12">
                 <ul className="menu menu-horizontal p-0">
                     {menuLink}
                 </ul>
-            </div>
-            <div className="navbar-end">
-                <h2>{user?.displayName}</h2>
-                <div className="ml-2 avatar">
-                    <div className="rounded-full w-12 h-12">
-                        {
-                           user?.photoURL  && <img src={user?.photoURL} alt="" />
-                        }
-                    </div>
-                </div>
             </div>
         </div>
     );

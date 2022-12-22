@@ -6,17 +6,23 @@ const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     const location = useLocation();
     if (loading) {
-        return <div className="hero min-h-screen w-full">
-            <div className="hero-content text-center w-1/2">
-                <div className="max-w-lg">
-                    <button type="button" className="btn bg-red-500 border-red-500 text-white">
-                        <svg className="animate-spin h-5 w-5 mr-3 bg-blue-600" viewBox="0 0 24 24">
-                        </svg>
-                        Loading...
-                    </button>
+        return  <div className='min-h-screen flex items-center'>
+        <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
+            <div className="animate-pulse flex space-x-4">
+                <div className="rounded-full bg-slate-700 h-10 w-10"></div>
+                <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     }
 
     if (user) {

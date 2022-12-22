@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 const DisplayReview = ({review}) => {
-    const {user, serviceName, service, price, text } = review;
+    const {user, serviceName, service, price, text , name} = review;
     const [serviceReviews, setServiceReviews] = useState({});
 
     useEffect(() => {
-        fetch(`https://food-court-server.vercel.app/services/${service}`)
+        fetch(`http://localhost:5000/services/${service}`)
             .then(res => res.json())
             .then(data => setServiceReviews(data))
     }, [service])
 
     return (
         <tr>
-            <td>
+            {/* <td>
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
                         <div className="rounded w-12 h-12">
@@ -33,9 +33,9 @@ const DisplayReview = ({review}) => {
                 {user?.displayName} 
                 <br/>
                  {user?.email}
-            </td>
+            </td> */}
             <td>
-                {text}
+                <span className='font-semibold'>{name && `${name} -`}</span> {text} 
             </td>
         </tr>
     );
