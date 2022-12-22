@@ -50,7 +50,7 @@ const routes = createBrowserRouter([
                 path: '/services/:id',
                 element: <ServiceDetails></ServiceDetails>,
                 loader: ({params}) =>{
-                    return fetch(`http://localhost:5000/services/${params.id}`)
+                    return fetch(`https://food-court-server.vercel.app/services/${params.id}`)
                 }
             },
             {

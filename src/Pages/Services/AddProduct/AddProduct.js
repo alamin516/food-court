@@ -33,7 +33,7 @@ const AddProduct = () => {
         
                 console.log(addProduct);
         
-                fetch('http://localhost:5000/service', {
+                fetch('https://food-court-server.vercel.app/service', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

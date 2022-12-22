@@ -30,7 +30,7 @@ const ServiceDetails = () => {
             rating,
         }
 
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://food-court-server.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -54,21 +54,11 @@ const ServiceDetails = () => {
     const { data: reviews = [], isLoading, refetch } = useQuery({
         queryKey: ['reviews', _id],
         queryFn: async () => {
-            const res = await fetch(` http://localhost:5000/reviews/service?service=${_id}`);
+            const res = await fetch(` https://food-court-server.vercel.app/reviews/service?service=${_id}`);
             const data = await res.json();
             return data
         }
     })
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/reviews/service?service=${_id}`)
-    //         .then(res => {
-    //             return res.json()
-    //         })
-    //         .then(data => {
-    //             setReviews(data)
-    //         })
-    // }, [_id])
 
 
     if(isLoading){
@@ -90,8 +80,6 @@ const ServiceDetails = () => {
                     <h3 className='text-2xl font-semibold mb-5'>Price: <span className='text-red-600'>${price}</span></h3>
                     <p className='mb-5'>{description.slice(0, 120)}...</p>
                     <p className='lg:mb-20 mb-5'>Rating: {rating}</p>
-                    <input type="number" className='input input-bordered rounded-lg text-black' />
-                    <button className="btn bg-red-600 rounded-lg w-25 border-none block mt-10">Add to cart</button>
                 </div>
             </div>
 

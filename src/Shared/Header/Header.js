@@ -13,7 +13,7 @@ const Header = () => {
 
     const menuLink = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to="/blog">Blog</Link></li>
+        {/* <li><Link to="/blog">Blog</Link></li> */}
         <li><Link to="/services">Services</Link></li>
         {
             user?.uid && <>

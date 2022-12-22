@@ -1,76 +1,101 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
-    const { signIn, signInWithGoogle } = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { signIn, signInWithGoogle, forgetPassword } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    
+    const [loginError, setLoginError] = useState('')
+
     const from = location.state?.from?.pathname || '/';
+
     useTitle('Login')
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password)
 
-        signIn(email, password)
+    const handleLogin = data => {
+        setLoginError('')
+        signIn(data.email, data.password)
             .then(result => {
-                const user = result.user;
-                console.log(user);
-                navigate(from, {replace: true})
+                toast.success('Successfully Login')
+                navigate(from, { replace: true });
             })
-            .catch(err => alert(err))
+            .catch(error => {
+                setLoginError(error.message)
+            })
     }
 
-    const handleGoogle = () => {
+
+    const handleSignInWithGoogle = () => {
         signInWithGoogle()
-            .then(result => {
+            .then((result) => {
                 const user = result.user;
                 console.log(user);
-                navigate(from, {replace: true})
+                navigate(from, { replace: true });
             })
-            .catch(err => alert(err))
+            .catch(error => console.error(error))
     }
+
+    const handlePassword = () => {
+        const email = prompt('Enter your email');
+        forgetPassword(email)
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
 
     return (
-        <div className="hero py-10">
-            <div className='lg:w-1/2'>
-                <div className="shadow-2xl bg-base-100 w-75 rounded-lg py-10">
-                    <form onSubmit={handleSubmit} className="card-body">
-                        <h1 className="text-3xl font-bold text-center">Login</h1>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input name='email' type="email" placeholder="email" className="input input-bordered rounded-lg" />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input name='password' type="password" placeholder="password" className="input input-bordered rounded-lg" />
-                            <label className="label">
-                                <Link to='/' className="label-text-alt link link-hover">Forgot password?</Link>
-                            </label>
-                        </div>
-                        <div className="form-control mt-6">
-                            <button className="btn bg-red-600 border-red-600 rounded-lg text-white">Login</button>
-                        </div>
-                    </form>
-                    <p className='text-center mb-2'>Create a new account? <Link to='/signup' className='text-red-500'>Sign Up</Link></p>
-                    <h1 className="text-xl font-bold text-center mb-2">OR</h1>
-                    <div className="text-center">
-                        <button onClick={handleGoogle} className="btn bg-blue-600 rounded-lg border-blue-600 text-white">Google</button>
+        <div className='min-h-screen flex justify-center items-center p-6'>
+            <div className='lg:w-6/12 p-6 shadow-lg rounded-xl'>
+                <h2 className='text-center text-xl'>Login</h2>
+                <form className='mt-8' onSubmit={handleSubmit(handleLogin)}>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input type="email" {...register("email", {
+                            required: 'Email Address is required'
+
+                        })} placeholder="email" className="input input-bordered" />
+                        {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                     </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input type="password" {...register("password", {
+                            required: true,
+                            minLength: {
+                                value: 6,
+                                message: "Password should more than 6 characters"
+                            }})} placeholder="password" className="input input-bordered" />
+                        {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
+                        <label className="label">
+                            <Link onClick={handlePassword} className="label-text-alt link link-hover">Forgot password?</Link>
+                        </label>
+                    </div>
+                    <div className="form-control mt-6">
+                        {loginError && <p className='text-red-500'>{loginError}</p>}
+                    </div>
+                    <div className="form-control mt-6">
+                        <button type="submit" className="btn btn-secondary">Login</button>
+                    </div>
+                </form>
+                <div className='text-center'>
+                    <p className='my-6'><Link className='text-primary' to='/signup'>Create new account</Link></p>
+                    <div className="text-xl font-bold">OR</div>
                 </div>
+                <div className="form-control mt-6">
+                    <button onClick={handleSignInWithGoogle} className="btn bordered-secondary text-black hover:bg-secondary hover:text-white bg-white">CONTINUE WITH GOOGLE</button>
+                </div>
+
             </div>
-        </div>
+        </div >
     );
 };
 
